@@ -1,0 +1,239 @@
+{
+	"pst": {
+		"backend": {
+			"error": {
+				"auth": {
+					"close": "Error while closing the connection",
+					"inexistantUser": "User does not exist",
+					"invalidToken": "Invalid token",
+					"ldapConnection": "Error connecting to authentication server",
+					"login": "Incorrect login/password",
+					"noToken": "No token provided",
+					"noUser": "No user provided",
+					"noUserClose": "No user provided / Close error",
+					"unauthorized": "Unauthorized access",
+					"userDeactivated": "User deactivated",
+					"validate": "Validation errors"
+				},
+				"notFound": "Route %{route} not found"
+			}
+		},
+		"dashboard": {
+			"forms": {
+				"completed": "%{smart_count} completed |||| %{smart_count} completed",
+				"draft": "%{smart_count} draft |||| %{smart_count} drafts",
+				"finished": "completed",
+				"ongoing": "ongoing",
+				"publishedForms": "Ongoing surveys",
+				"sentence": "%{started} (%{draft} + %{completed}) out of %{total} expected",
+				"started": "%{smart_count} started |||| %{smart_count} started",
+				"total": "%{smart_count} response |||| %{smart_count} responses"
+			},
+			"title": "Dashboard",
+			"welcome": "Welcome %{name}"
+		},
+		"forms": {
+			"editReply": "Edit responses",
+			"exportResponses": "Export responses",
+			"formTabs": {
+				"editor": "Form editor",
+				"info": "Information",
+				"responses": "Form responses"
+			},
+			"listName": "Name",
+			"listTabs": {
+				"completed": "Closed",
+				"draft": "Draft",
+				"published": "Published"
+			},
+			"replied": "You already replied. Thanks !",
+			"reply": "Reply to form",
+			"responses": "Responses",
+			"status": {
+				"completed": "Closed",
+				"draft": "Draft",
+				"published": "Published"
+			},
+			"title": {
+				"create": "Create a form",
+				"edit": "Form \"%{name}\""
+			}
+		},
+		"groups": {
+			"listTabs": {
+				"archived": "Archived",
+				"current": "Current"
+			},
+			"title": {
+				"create": "Create a group",
+				"edit": "Group \"%{label}\""
+			}
+		},
+		"importer": {
+			"absoluteImport": "Use absolute import",
+			"clear": "Clear",
+			"clearResults": "Clear results",
+			"enterJSONorUpload": "Please enter JSON below or upload a file",
+			"errors": {
+				"missingId": "[Invalid format] each member must have an \"id\" property",
+				"missingVariables": "[Invalid format] each member must have a \"variables\" property",
+				"requestError": "[Request error]"
+			},
+			"fileApiNotSupported": "This browser doesn't support \"File API\" functionality. Please copy/paste manually the content of the JSON file.",
+			"fileMeta": "(%{type}) %{size} bytes - last modified on the %{lastModified}",
+			"importButton": "Import variables",
+			"importUserVariables": "You can import user variables in the form below. They will be loaded in the user's responses. You're free to choose the name of the variables, the only reserved one being \"locale\", used to define the language of this interface. Any property outside of \"variables\" that is not \"id\" will be ignored. Here is an example of the expected data:",
+			"launchForResults": "Import results will appear here",
+			"launchImport": "Launch import",
+			"loadFile": "Load file",
+			"notifications": {
+				"done": "Import done",
+				"invalidFileType": "File must be of JSON type",
+				"invalidJSON": "Invalid JSON",
+				"invalidRoot": "Root element must be of type \"array\"",
+				"pleaseWait": "Please wait... You'll be notified when import is done"
+			},
+			"readOnly": "File selected - read only",
+			"results": "Results",
+			"title": "Import user variables",
+			"updatedFailure": "Variables import failed for %{smart_count} member |||| Variables import failed for %{smart_count} members",
+			"updatedSuccess": "Variables imported successfully for %{smart_count} member out of %{total_count} |||| Variables imported successfully for %{smart_count} members out of %{total_count}"
+		},
+		"localeMenu": {
+			"confirm": "Close",
+			"language": "Language"
+		},
+		"members": {
+			"bulkAddToGroups": {
+				"button": "Add to groups",
+				"cancel": "Cancel",
+				"errors": {
+					"loadGroups": "Error: couldn't load groups",
+					"noGroup": "Please select at least one group",
+					"updateMembers": "Error: couldn't update members"
+				},
+				"save": "Save",
+				"success": "Members added to groups",
+				"text": "Please select the groups you want to add these members to.",
+				"title": "Add to groups"
+			},
+			"formTabs": {
+				"info": "Information",
+				"responses": "Member responses",
+				"surveyVariables": "Form variables"
+			},
+			"listTabs": {
+				"active": "Active",
+				"inactive": "Inactive"
+			},
+			"responses": "Responses",
+			"roles": {
+				"admin": "Administrator",
+				"member": "Member"
+			},
+			"title": {
+				"create": "Create a member",
+				"edit": "Member \"%{name}\""
+			},
+			"variablesEditor": {
+				"detectedValueType": "Detected value type: %{type}",
+				"jsonVariables": "JSON variables",
+				"variableName": "Variable name",
+				"variableValue": "Variable value",
+				"viewAsJson": "View as JSON"
+			}
+		},
+		"responses": {
+			"formTabs": {
+				"info": "Information",
+				"reply": "Reply"
+			},
+			"listTabs": {
+				"completed": "Completed",
+				"draft": "Draft"
+			},
+			"status": {
+				"completed": "Completed",
+				"draft": "Draft"
+			},
+			"survey": {
+				"completion": {
+					"error": "Survey couldn't be completed",
+					"success": "Survey completed"
+				},
+				"create": {
+					"error": "Survey couldn't be created",
+					"success": "Survey created"
+				},
+				"finish": "Finish",
+				"errorPopup": {
+					"title": "There are errors on the following page |||| There are errors on the following pages",
+					"content": "Please fix them to finish the survey.",
+					"confirm": "I get it"
+				},
+				"loading": "Loading...",
+				"nextPage": "Next page",
+				"previousPage": "Previous page",
+				"save": {
+					"error": "Survey couldn't be saved",
+					"success": "Autosaved at %{time}"
+				},
+				"selectForm": "Please select a form",
+				"selectMember": "Please select a member"
+			},
+			"title": {
+				"create": "Reply to a form",
+				"edit": "Responses to form \"%{form}\""
+			}
+		}
+	},
+	"resources": {
+		"forms": {
+			"fields": {
+				"canReply": "Allowed to reply",
+				"createdAt": "Creation date",
+				"data": "Form content",
+				"id": "Form ID",
+				"name.de": "Name (DE)",
+				"name.en": "Name (EN)",
+				"name.fr": "Name (FR)",
+				"name.it": "Name (IT)",
+				"status": "Status",
+				"updatedAt": "Last updated"
+			},
+			"name": "Form |||| Forms"
+		},
+		"groups": {
+			"fields": {
+				"archived": "Archive",
+				"id": "Group ID",
+				"label": "Label"
+			},
+			"name": "Group |||| Groups"
+		},
+		"members": {
+			"fields": {
+				"active": "Active",
+				"email": "Email",
+				"groups": "Groups",
+				"id": "Member ID",
+				"name": "Name",
+				"role": "Role",
+				"variables": "Variables"
+			},
+			"name": "Member |||| Members"
+		},
+		"responses": {
+			"fields": {
+				"createdAt": "Creation date",
+				"data": "Response content",
+				"form": "Form",
+				"id": "Response ID",
+				"member": "Replied by",
+				"status": "Status",
+				"updatedAt": "Last updated"
+			},
+			"name": "Response |||| Responses"
+		}
+	}
+}

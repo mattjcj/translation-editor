@@ -14,26 +14,11 @@ import Main from './components/Main'
 import generateStructure from './utils/generateStructure'
 import generatePaths from './utils/generatePaths'
 
-const initialMessages = {
-  en: {
-    foo: {
-      bar: 'baz',
-      bur: 'buz'
-    },
-    bol: {
-      bul: 'bum',
-      bal: {
-        bel: 'bem',
-        zz: {
-          uuuuu: 'joooj'
-        }
-      }
-    }
-  },
-  fr: {
-    yolo: 'yulu'
-  }
-}
+import en from './data/en'
+import fr from './data/fr'
+import de from './data/de'
+
+const initialMessages = { en, fr, de }
 
 class App extends React.Component {
   constructor(props) {
