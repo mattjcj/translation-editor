@@ -7,6 +7,7 @@ import PathLink from '../PathLink'
 import iterate from '../../utils/iterate'
 import pathName from '../../utils/pathName'
 import AddLocaleButton from '../AddLocaleButton/AddLocaleButton'
+import DeleteLocaleButton from '../DeleteLocale/DeleteLocaleButton'
 
 const Iterator = (props) => {
 
@@ -63,6 +64,7 @@ class Sidebar extends React.Component {
       <aside className="sidebar">
         <Iterator {...this.props} />
         <AddLocaleButton {...this.props} />
+        <DeleteLocaleButton {...this.props} />
       </aside>
     )
   }

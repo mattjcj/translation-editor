@@ -39,13 +39,24 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: initialMessages,
+      messages: this.structureMessages(initialMessages),
       redirect: null
     }
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.handleAddLocale = this.handleAddLocale.bind(this)
+    this.handleDeleteLocale = this.handleDeleteLocale.bind(this)
+  }
+
+  structureMessages(messages) {
+    const structuredMessages = {}
+    Object.keys(messages).forEach((locale) => {
+      const structure = generateStructure(messages)
+      const clonedMessages = _.cloneDeep(messages[locale])
+      structuredMessages[locale] = _.merge(structure, clonedMessages)
+    })
+    return structuredMessages
   }
 
   handleUpdate(path, locale, value) {
@@ -64,8 +75,8 @@ class App extends React.Component {
       newPath.push(pathName)
       const value = type === 'collection' ? {} : ''
 
-      //const newLocation = ['/messages', ...newPath]
-      //newState.redirect = newLocation.join('/')
+      const newLocation = ['/messages', ...newPath]
+      newState.redirect = newLocation.join('/')
 
       newState.messages = _.cloneDeep(prevState.messages)
       Object.keys(newState.messages).forEach((locale) => {
@@ -101,6 +112,15 @@ class App extends React.Component {
     })
   }
 
+  handleDeleteLocale(locale) {
+    this.setState((prevState) => {
+      const newState = {}
+      newState.messages = _.cloneDeep(prevState.messages)
+      delete newState.messages[locale]
+      return newState
+    })
+  }
+
   render() {
     const { messages, redirect } = this.state
     const structure = generateStructure(messages)
@@ -114,9 +134,10 @@ class App extends React.Component {
       })
       return <Redirect push to={redirect} />
     }
+
     return (
       <div className="container">
-        <Sidebar structure={structure} addLocale={this.handleAddLocale} />
+        <Sidebar structure={structure} messages={messages} addLocale={this.handleAddLocale} deleteLocale={this.handleDeleteLocale} />
         <Main
           structure={structure}
           paths={paths}

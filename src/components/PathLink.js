@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Link
+  NavLink
 } from "react-router-dom"
 
 import pathString from '../utils/pathString'
@@ -10,7 +10,7 @@ class PathLink extends React.Component {
   render() {
     const { path } = this.props
     return (
-      <Link to={`/messages/${pathString(path)}`} >{pathName(path)}</Link>
+      <NavLink to={`/messages/${pathString(path)}`} activeClassName="active" exact>{pathName(path)}</NavLink>
     )
   }
 }
