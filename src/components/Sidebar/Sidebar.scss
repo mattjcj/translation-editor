@@ -1,0 +1,31 @@
+.sidebar {
+  height: 100%;
+  overflow: hidden;
+
+  .item {
+    padding-left: 30px;
+    a {
+      width: 100%;
+      position: relative;
+      display: inline-block;
+      padding: 10px;
+      background-color: #eee;
+      margin-bottom: 2px;
+
+      &:before {
+        content: '> ';
+        display: inline-block;
+        position: relative;
+        width: 1em;
+        vertical-align: middle;
+        opacity: 0;
+      }
+
+      &:hover, &:focus {
+        &:before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.container {
+  height: 100%;
+  display: flex;
+}
+
+.sidebar, .editor, .explorer {
+  flex: 1 1 0px;
+}
+
+.editor, .explorer {
+  padding: 20px;
+}
