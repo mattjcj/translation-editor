@@ -6,9 +6,11 @@ export default (props) => {
 
   const [ pathName, setPathName ] = React.useState('')
 
+  const enabled = (pathName.length > 0)
+
   const handleSubmit = (e, type) => {
     e.preventDefault()
-    if (pathName.length > 0) {
+    if (enabled) {
       addValue(path, pathName, type)
       setPathName('')
     }
@@ -29,8 +31,8 @@ export default (props) => {
   return (
     <form >
       <input type="text" value={pathName} onChange={handleChange} />
-      <button onClick={handleAddMessage}>Add Message</button>
-      <button onClick={handleAddCollection}>Add Collection</button>
+      <button onClick={handleAddMessage} disabled={!enabled}>Add Message</button>
+      <button onClick={handleAddCollection} disabled={!enabled}>Add Collection</button>
     </form>
   )
 }

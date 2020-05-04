@@ -6,9 +6,11 @@ export default (props) => {
 
   const [ locale, setLocale ] = React.useState('')
 
+  const enabled = locale.length > 0
+
   const handleAdd = (e) => {
     e.preventDefault()
-    if (locale.length > 0) {
+    if (enabled) {
       console.log(addLocale)
       addLocale(locale)
       setLocale('')
@@ -22,7 +24,7 @@ export default (props) => {
   return (
     <form >
       <input type="text" value={locale} onChange={handleChange} />
-      <button onClick={handleAdd}>Add Locale</button>
+      <button onClick={handleAdd} disabled={!enabled}>Add Locale</button>
     </form>
   )
 }

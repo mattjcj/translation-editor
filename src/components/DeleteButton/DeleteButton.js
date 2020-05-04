@@ -2,13 +2,13 @@ import React from 'react'
 
 export default (props) => {
 
-  const { deleteValue, path } = props
+  const { deleteValue, path, disabled } = props
 
   const handleDelete = (e) => {
     deleteValue(path)
   }
 
   return (
-    <button onClick={handleDelete}>Delete</button>
+    <button onClick={handleDelete} disabled={disabled}>Delete</button>
   )
 }

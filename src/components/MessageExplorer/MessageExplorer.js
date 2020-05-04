@@ -32,9 +32,7 @@ export default (props) => {
           })
         }
       </ul>
-      {
-        path.arr.length ? <DeleteButton {...props} /> : null
-      }
+      <DeleteButton {...props} disabled={!path.arr.length} />
       <AddButton {...props} />
     </div>
   )

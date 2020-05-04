@@ -8,9 +8,11 @@ export default (props) => {
 
   const [ locale, setLocale ] = React.useState('')
 
+  const enabled = locale.length > 0
+
   const handleDelete = (e) => {
     e.preventDefault()
-    if (locale.length > 0) {
+    if (enabled) {
       deleteLocale(locale)
       setLocale('')
     }
@@ -30,7 +32,7 @@ export default (props) => {
             ))
           }
       </select>
-      <button onClick={handleDelete}>Delete Locale</button>
+      <button onClick={handleDelete} disabled={!enabled}>Delete Locale</button>
     </form>
   )
 }
