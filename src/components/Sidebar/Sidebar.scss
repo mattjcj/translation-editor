@@ -11,6 +11,9 @@
       padding: 10px;
       background-color: #eee;
       margin-bottom: 2px;
+      text-decoration: none;
+      color: #000;
+      outline: 0;
 
       &:before {
         content: '> ';
@@ -21,15 +24,24 @@
         opacity: 0;
       }
 
-      &:hover, &:focus {
+      &:hover, &:focus, &.active {
         &:before {
           opacity: 1;
         }
       }
+    }
 
-      &.active {
+    &.invalid {
+      a {
+        background-color: #fee;
+      }
+    }
+
+    &, &.invalid{
+      a.active {
         background-color: #ddd;
       }
     }
+
   }
 }

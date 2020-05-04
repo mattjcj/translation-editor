@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 
 import './Sidebar.scss'
 
@@ -6,18 +7,26 @@ import PathLink from '../PathLink'
 
 import iterate from '../../utils/iterate'
 import pathName from '../../utils/pathName'
+
 import AddLocaleButton from '../AddLocaleButton/AddLocaleButton'
 import DeleteLocaleButton from '../DeleteLocale/DeleteLocaleButton'
 
 const Iterator = (props) => {
 
-  const { structure } = props
+  const { structure, messages } = props
 
   const parse = (base) => {
     const onString = (path, value) => {
+      let isValid = true
+      Object.keys(messages).forEach((locale) => {
+        const value = _.get(messages[locale], path)
+        if(!value.length) {
+          isValid = false
+        }
+      })
       const key = pathName(path)
       return (
-        <li key={key} className='item item-message'>
+        <li key={key} className={`item item-message ${isValid ? '' : 'invalid'}`}>
           <PathLink path={path} />
         </li>
       )
@@ -59,7 +68,6 @@ const Iterator = (props) => {
 
 class Sidebar extends React.Component {
   render() {
-    //const { paths } = this.props
     return (
       <aside className="sidebar">
         <Iterator {...this.props} />
