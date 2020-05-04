@@ -1,5 +1,9 @@
 @import 'reset';
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   position: absolute;
   min-height: 100%;

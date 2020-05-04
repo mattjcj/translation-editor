@@ -1,10 +1,17 @@
 .container {
   height: 100%;
   display: flex;
+
+  width: 100%;
+  position: absolute;
+  overflow: auto;
 }
 
 .sidebar, .editor, .explorer {
   flex: 1 1 0px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 .editor, .explorer {
