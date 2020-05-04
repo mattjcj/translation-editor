@@ -6,6 +6,7 @@ import {
 
 import MessageEditor from './MessageEditor/MessageEditor'
 import MessageExplorer from './MessageExplorer/MessageExplorer'
+import NavLinks from './NavLinks/NavLinks'
 
 const defaultPath = {
   type: 'collection',
@@ -17,13 +18,29 @@ export default (props) => {
   let { messagePath } = useParams()
   const { paths } = props
 
-  const path = paths.find((item) => item.str === messagePath)
+  let pathId
 
+  const path = paths.find((item, index) => {
+    const found = item.str === messagePath
+    if(found) {
+      pathId = index
+    }
+    return found
+  })
+
+  let content
   if (path && path.type === 'message') {
-    return <MessageEditor {...props} path={path} />
+    content = <MessageEditor {...props} path={path} pathId={pathId} />
   } else if (path) {
-    return <MessageExplorer {...props} path={path} />
+    content = <MessageExplorer {...props} path={path} pathId={pathId} />
   } else {
-    return <MessageExplorer {...props} path={defaultPath} />
+    content = <MessageExplorer {...props} path={defaultPath} pathId={0} />
   }
+
+  return (
+    <>
+    <NavLinks {...props} pathId={pathId}/>
+    {content}
+    </>
+  )
 }
