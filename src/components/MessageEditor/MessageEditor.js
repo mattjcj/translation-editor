@@ -6,7 +6,7 @@ import DeleteButton from '../DeleteButton/DeleteButton'
 
 export default (props) => {
 
-  const { messages, structure, path, updateValue, deleteValue } = props
+  const { messages, structure, path, updateValue } = props
 
   const message = {}
 
