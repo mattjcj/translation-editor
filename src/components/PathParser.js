@@ -38,9 +38,9 @@ export default (props) => {
   }
 
   return (
-    <>
-    <NavLinks {...props} pathId={pathId}/>
-    {content}
-    </>
+    <div className='column'>
+      <NavLinks {...props} pathId={pathId}/>
+      {content}
+    </div>
   )
 }

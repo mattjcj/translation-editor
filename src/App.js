@@ -28,6 +28,7 @@ class App extends React.Component {
       redirect: null
     }
     this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleJSONUpdate = this.handleJSONUpdate.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.handleAddLocale = this.handleAddLocale.bind(this)
@@ -49,6 +50,16 @@ class App extends React.Component {
       const newState = {}
       newState.messages = _.cloneDeep(prevState.messages)
       _.set(newState.messages[locale], path.arr, value)
+      return newState
+    })
+  }
+
+  handleJSONUpdate(json) {
+    this.setState(() => {
+      const newMessages = _.cloneDeep(json)
+      const newState = {
+        messages: this.structureMessages(newMessages)
+      }
       return newState
     })
   }
@@ -128,6 +139,7 @@ class App extends React.Component {
           paths={paths}
           messages={messages}
           updateValue={this.handleUpdate}
+          JSONUpdateValue={this.handleJSONUpdate}
           deleteValue={this.handleDelete}
           addValue={this.handleAdd} />
       </div>

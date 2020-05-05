@@ -7,13 +7,13 @@
   overflow: auto;
 }
 
-.sidebar, .editor, .explorer {
+.sidebar, .column {
   flex: 1 1 0px;
-  height: 100%;
   overflow-x: hidden;
-  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .editor, .explorer {
   padding: 20px;
+  height: 100%;
 }

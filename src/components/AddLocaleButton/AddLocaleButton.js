@@ -1,18 +1,23 @@
 import React from 'react'
 
+import {
+  Input
+} from 'semantic-ui-react'
+
 export default (props) => {
 
-  const { addLocale } = props
+  const { addLocale, messages } = props
 
   const [ locale, setLocale ] = React.useState('')
 
-  const enabled = locale.length > 0
+  const locales = Object.keys(messages)
+  const enabled = locale.length > 0 && locales.indexOf(locale.toLowerCase()) < 0
 
   const handleAdd = (e) => {
+    console.log(e)
     e.preventDefault()
     if (enabled) {
-      console.log(addLocale)
-      addLocale(locale)
+      addLocale(locale.toLowerCase())
       setLocale('')
     }
   }
@@ -23,8 +28,7 @@ export default (props) => {
 
   return (
     <form >
-      <input type="text" value={locale} onChange={handleChange} />
-      <button onClick={handleAdd} disabled={!enabled}>Add Locale</button>
+      <Input action={{ icon: 'add', disabled: !enabled, onClick: handleAdd }} placeholder='Locale' value={locale} onChange={handleChange} />
     </form>
   )
 }

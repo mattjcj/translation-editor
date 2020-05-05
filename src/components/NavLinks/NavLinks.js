@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './NavLinks.scss'
+
 import {
   Link
 } from "react-router-dom"
@@ -20,9 +22,9 @@ export default (props) => {
   }
 
   return (
-    <>
-      {prev && <Link to={prev}>Prev</Link>}
-      {next && <Link to={next}>Next</Link>}
-    </>
+    <div class='nav-links'>
+      {prev && <Link to={prev} className='prev'>Prev</Link>}
+      {next && <Link to={next} className='next'>Next</Link>}
+    </div>
   )
 }

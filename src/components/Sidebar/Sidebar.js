@@ -4,12 +4,10 @@ import _ from 'lodash'
 import './Sidebar.scss'
 
 import PathLink from '../PathLink'
+import GlobalMenu from '../GlobalMenu/GlobalMenu'
 
 import iterate from '../../utils/iterate'
 import pathName from '../../utils/pathName'
-
-import AddLocaleButton from '../AddLocaleButton/AddLocaleButton'
-import DeleteLocaleButton from '../DeleteLocale/DeleteLocaleButton'
 
 const Iterator = (props) => {
 
@@ -70,9 +68,8 @@ class Sidebar extends React.Component {
   render() {
     return (
       <aside className="sidebar">
+        <GlobalMenu {...this.props} />
         <Iterator {...this.props} />
-        <AddLocaleButton {...this.props} />
-        <DeleteLocaleButton {...this.props} />
       </aside>
     )
   }

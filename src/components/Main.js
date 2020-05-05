@@ -3,14 +3,19 @@ import {
   Switch,
   Route
 } from "react-router-dom"
-import EditorPanel from './EditorPanel'
+
+import PathParser from './PathParser'
+import JSONPanel from './JSONPanel/JSONPanel'
 
 const Main = (props) => {
   //let match = useRouteMatch()
   return (
     <Switch>
-      <Route path="/messages">
-        <EditorPanel {...props} />
+      <Route path="/messages/:messagePath*">
+        <PathParser {...props} />
+      </Route>
+      <Route path="/json">
+        <JSONPanel {...props} onChange={props.JSONUpdateValue} />
       </Route>
     </Switch>
   )

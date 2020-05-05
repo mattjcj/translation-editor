@@ -95,7 +95,6 @@ export class JSONEditor extends React.Component {
     if( !_.isEqual(options, prevProps.options) ) {
       this.setOptions(options)
     }
-
   }
 
   componentWillUnmount() {
