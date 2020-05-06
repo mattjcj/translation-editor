@@ -14,7 +14,6 @@ import Main from './components/Main'
 
 import generateStructure from './utils/generateStructure'
 import generatePaths from './utils/generatePaths'
-import findPath from './utils/findPath'
 import clone from './utils/fastClone'
 
 import en from './data/en-us'

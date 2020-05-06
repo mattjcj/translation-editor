@@ -90,7 +90,7 @@ class Iterator extends React.Component {
       const pathData = {
         type: 'collection',
         str: '',
-        id: 'root',
+        id: 'rt',
         arr: [],
         name: 'Root'
       }

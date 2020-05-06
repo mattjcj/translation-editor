@@ -9,12 +9,6 @@ import MessageExplorer from './MessageExplorer/MessageExplorer'
 import NavLinks from './NavLinks/NavLinks'
 import Location from './Location/Location'
 
-const defaultPath = {
-  type: 'collection',
-  str: '/',
-  arr: []
-}
-
 export default (props) => {
   let { messagePath } = useParams()
   const { paths } = props
@@ -35,7 +29,7 @@ export default (props) => {
   } else if (path) {
     content = <MessageExplorer {...props} path={path} pathId={pathId} />
   } else {
-    content = <MessageExplorer {...props} path={defaultPath} pathId={0} />
+    content = <MessageExplorer {...props} path={paths[0]} pathId={0} />
   }
 
   return (

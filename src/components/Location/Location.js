@@ -56,7 +56,6 @@ class LocationSections extends React.Component {
               const id = pathId(path.arr.slice(0,index+1))
               const link = `/messages/${str}#${id}`
               const active = index === path.arr.length -1
-              console.log(link)
               return (
                 <React.Fragment key={link}>
                   <LocationSection link={link} active={active} text={section}/>

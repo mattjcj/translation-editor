@@ -13,7 +13,6 @@ import { JsonEditor as Editor } from 'jsoneditor-react'
 import 'jsoneditor-react/es/editor.min.css'
 
 import clone from '../utils/fastClone'
-import equal from '../utils/fastCompare'
 
 const ajv = new Ajv({
   allErrors: true,
