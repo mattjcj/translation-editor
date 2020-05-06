@@ -6,6 +6,8 @@ import {
   Menu
 } from 'semantic-ui-react'
 
+import { withRouter } from 'react-router-dom'
+
 import './MessageExplorer.scss'
 
 import PathLink from '../PathLink/PathLink'
@@ -13,21 +15,24 @@ import PathLink from '../PathLink/PathLink'
 import DeleteButton from '../DeleteButton/DeleteButton'
 import AddButton from '../AddButton/AddButton'
 import pathString from '../../utils/pathString'
+import findPath from '../../utils/findPath'
 
-export default class MessageExplorer extends React.Component {
+class MessageExplorer extends React.Component {
   shouldComponentUpdate(nextProps) {
-    const { paths, currentPath } = this.props
+    const { paths, location } = this.props
     return (
       !_.isEqual(paths, nextProps.paths)
-      || !_.isEqual(currentPath, nextProps.currentPath)
+      || !_.isEqual(location, nextProps.location)
     )
   }
 
   render() {
-    const { paths, currentPath } = this.props
+    const { paths, location } = this.props
+
+    const { path } = findPath(paths, location.pathname)
   
-    const subPaths = paths.filter((path) => {
-      return pathString( path.arr.slice(0, path.arr.length-1) ) === currentPath.str
+    const subPaths = paths.filter((subPath) => {
+      return path && pathString( subPath.arr.slice(0, subPath.arr.length-1) ) === path.str
     })
   
     return (
@@ -36,14 +41,14 @@ export default class MessageExplorer extends React.Component {
           {
             subPaths.map((subPath) => {
               return (
-                <PathLink key={subPath.name} path={subPath} className='item' />
+                <PathLink key={subPath.name} path={subPath} className='item' withAnchor />
               )
             })
           }
         </Menu>
         <Segment.Group>
           <Segment>
-            <DeleteButton {...this.props} disabled={!currentPath.arr.length} />
+            <DeleteButton {...this.props} disabled={path && !path.arr.length} />
             <AddButton {...this.props} />
           </Segment>
         </Segment.Group>
@@ -51,3 +56,5 @@ export default class MessageExplorer extends React.Component {
     )
   }
 }
+
+export default withRouter(MessageExplorer)

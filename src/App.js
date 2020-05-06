@@ -6,12 +6,6 @@ import {
   withRouter
 } from 'react-router-dom'
 
-import HashLinkObserver from "react-hash-link"
-
-import {
-  GlobalHotKeys
-} from 'react-hotkeys'
-
 import './scss/App.scss'
 
 // import withRouter from './components/withRouter'
@@ -20,25 +14,45 @@ import Main from './components/Main'
 
 import generateStructure from './utils/generateStructure'
 import generatePaths from './utils/generatePaths'
+import findPath from './utils/findPath'
 import clone from './utils/fastClone'
 
 import en from './data/en-us'
 import fr from './data/fr'
 import de from './data/de'
+import PrevNextRedirect from './components/PrevNextRedirect'
 
 const initialMessages = { 'en-us': en, 'fr-ch': fr, 'de-ch': de }
 
-const keyMap = {
-  PREV: ['ArrowLeft'],
-  NEXT: ['ArrowRight']
+const withRedirect = (WrappedComponent) => (props) => {
+
+  const [location, setLocation] = React.useState(null)
+
+  const redirect = (loc) => {
+    setLocation(loc)
+  }
+
+  React.useEffect(() => {
+    if(location) {
+      setLocation(null)
+    }
+  }, [location])
+
+  return (
+    <>
+      {location && <Redirect to={location} push />}
+      <WrappedComponent {...props} redirect={redirect} />
+    </>
+  )
+  
 }
 
-class App extends React.PureComponent {
+class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      redirect: null,
       messages: this.structureMessages(initialMessages),
-      redirect: null
     }
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleJSONUpdate = this.handleJSONUpdate.bind(this)
@@ -46,68 +60,25 @@ class App extends React.PureComponent {
     this.handleAdd = this.handleAdd.bind(this)
     this.handleAddLocale = this.handleAddLocale.bind(this)
     this.handleDeleteLocale = this.handleDeleteLocale.bind(this)
-    this.handlers = {
-      PREV: this.hotKeyRedirect('prev').bind(this),
-      NEXT: this.hotKeyRedirect('next').bind(this)
-    }
   }
 
-  hotKeyRedirect(destination) {
-    return (e) => {
-      // find current path
-      const { pathId, paths } = this.findPath()
-
-      let path
-      if (destination === 'prev'){
-        // if we're not on the first element, go to the prev one, otherwise loop to last (either undefined or first)
-        if ( pathId > 0) {
-          path = paths[pathId-1]
-        } else {
-          path = paths[paths.length - 1]
-        }
-      }
-    
-      if (destination === 'next') {
-        // if we're not on the last element, go to the next one, otherwise loop to first (either undefined or last)
-        if (pathId < paths.length - 1) {
-          path = paths[pathId+1]
-        } else {
-          path = paths[1]
-        }
-      }
-
-      let location = null
-
-      if(path) {
-        location = `/messages/${path.str}#${path.id}`
-      }
-
-      this.setState({
-        redirect: location
-      })
-    }
-  }
-
-  findPath(paths) {
-    if(typeof paths === 'undefined') {
-      const structure = generateStructure(this.state.messages)
-      paths = generatePaths(this.state.messages, structure)
-    }
-    const currentLocation = this.props.location.pathname
-    let path
-    let pathId
-    // find current path
-    paths.forEach((pathEval, index) => {
-      if (`/messages/${pathEval.str}` === currentLocation) {
-        pathId = index
-        path = pathEval
-      }
-    })
-    return {
-      pathId,
-      path,
-      paths
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    const state = () => {
+      const { messages } = this.state
+      const should = (
+        !_.isEqual(messages, nextState.messages)
+      )
+      return should
+    }/*
+    const props = () => {
+       const { location } = this.props
+      const should = (
+        // we actually only need to rerender when we redirected
+        // this.state.redirect && !_.isEqual(location, nextState.location)
+      )
+      return should
+    }*/
+    return state() //|| props()
   }
 
   structureMessages(messages) {
@@ -163,7 +134,8 @@ class App extends React.PureComponent {
       
       const newLocation = path.arr.slice(0, path.arr.length - 1)
       newLocation.unshift('/messages')
-      newState.redirect = newLocation.join('/')
+      //newState.redirect = newLocation.join('/')
+      this.props.redirect(newLocation.join('/'))
 
       newState.messages = clone(prevState.messages)
       Object.keys(newState.messages).forEach((locale) => {
@@ -206,7 +178,6 @@ class App extends React.PureComponent {
     // we need to generate paths from structure and not messages to avoid
     // duplicates because of multiple locales
     const paths = generatePaths(messages, structure)
-    const { path } = this.findPath(paths)
 
     return (
       <div className="container">
@@ -214,24 +185,21 @@ class App extends React.PureComponent {
         <Sidebar
           structure={structure}
           paths={paths}
-          currentPath={path}
           messages={messages}
           addLocale={this.handleAddLocale}
           deleteLocale={this.handleDeleteLocale} />
         <Main
           structure={structure}
           paths={paths}
-          currentPath={path}
           messages={messages}
           updateValue={this.handleUpdate}
           JSONUpdateValue={this.handleJSONUpdate}
           deleteValue={this.handleDelete}
           addValue={this.handleAdd} />
-        <HashLinkObserver />
-        <GlobalHotKeys keyMap={keyMap} handlers={this.handlers} />
+        <PrevNextRedirect paths={ paths } />
       </div>
     )
   }
 }
 
-export default withRouter(App)
+export default withRouter(withRedirect(App))

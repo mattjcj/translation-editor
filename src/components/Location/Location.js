@@ -11,6 +11,7 @@ import {
 import './Location.scss'
 
 import pathString from '../../utils/pathString'
+import pathId from '../../utils/pathId'
 
 export default (props) => {
 
@@ -26,9 +27,9 @@ export default (props) => {
 
   if(path && path.arr.length) {
     sections = path.arr.map((section, index) => {
-      const link = '/messages/' +pathString(
-        path.arr.slice(0,index+1)
-      )
+      const str = pathString(path.arr.slice(0,index+1))
+      const id = pathId(path.arr.slice(0,index+1))
+      const link = `/messages/${str}#${id}`
       const active = index === path.arr.length -1
       return (
         <Breadcrumb.Section active={active} key={link}>

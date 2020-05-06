@@ -2,6 +2,7 @@ import iterate from './iterate'
 import _ from 'lodash'
 import pathString from './pathString'
 import pathName from './pathName'
+import pathId from './pathId'
 
 export default (messages, structure) => {
   const paths = []
@@ -11,13 +12,13 @@ export default (messages, structure) => {
     Object.keys(messages).forEach((locale) => {
       const message = _.get(messages[locale], path)
       // for it to be valid, it need to be set to valid previously, and to exist
-      isValid = isValid && message && message.length
+      isValid = isValid && message && !!message.length
     })
 
     return {
       type: type,
       str: pathString(path),
-      id: path.join('-'),
+      id: pathId(path),
       arr: path,
       name: pathName(path),
       isValid: isValid
