@@ -4,7 +4,7 @@ import './NavLinks.scss'
 
 import {
   Link,
-  NavLink
+  NavLink,
 } from "react-router-dom"
 
 export default (props) => {
@@ -15,22 +15,25 @@ export default (props) => {
   let next = null
 
   if (pathId > 0) {
-    prev = '/messages/' +paths[pathId-1].str
+    const newPath = paths[pathId-1]
+    prev = `/messages/${newPath.str}#${newPath.id}`
   }
 
   if (pathId < paths.length - 1) {
-    next = '/messages/' +paths[pathId+1].str
+    const newPath = paths[pathId+1]
+    next = `/messages/${newPath.str}#${newPath.id}`
   }
 
   if(typeof pathId === 'undefined') {
-    next = '/messages/' +paths[1].str
+    const newPath = paths[1]
+    next = `/messages/${newPath.str}#${newPath.id}`
   }
 
   return (
     <p className='nav-links'>
-      {prev ? <Link to={prev} className='prev ui button'>Prev</Link> : <span class='button ui disabled'>Prev</span>}
+      {prev ? <Link to={prev} className='prev ui button'>Prev</Link> : <span className='button ui disabled'>Prev</span>}
       <NavLink to='/json' activeClassName="active" exact>View JSON</NavLink>
-      {next ? <Link to={next} className='next ui button'>Next</Link> : <span class='button ui disabled'>Next</span>}
+      {next ? <Link to={next} className='next ui button'>Next</Link> : <span className='button ui disabled'>Next</span>}
     </p>
   )
 }

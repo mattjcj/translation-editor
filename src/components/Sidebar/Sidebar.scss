@@ -3,6 +3,17 @@
   flex-direction: column;
   border-right: 1px solid #ddd;
 
+  .iterator {
+    padding-top: 50px;
+
+    &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      padding-bottom: 50px;
+    }
+  }
+
   .global-menu, .iterator {
     overflow-x: hidden;
   }

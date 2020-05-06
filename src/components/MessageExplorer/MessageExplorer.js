@@ -2,7 +2,8 @@ import React from 'react'
 import _ from 'lodash'
 
 import {
-  Segment
+  Segment,
+  Menu
 } from 'semantic-ui-react'
 
 import './MessageExplorer.scss'
@@ -12,7 +13,6 @@ import PathLink from '../PathLink/PathLink'
 import pathName from '../../utils/pathName'
 import DeleteButton from '../DeleteButton/DeleteButton'
 import AddButton from '../AddButton/AddButton'
-import Location from '../Location/Location'
 
 export default (props) => {
 
@@ -24,22 +24,17 @@ export default (props) => {
 
   return (
     <div className="explorer">
-      <Location {...props} />
+      <Menu vertical fluid>
+        {
+          subPaths.map((subPath) => {
+            const result = [...path.arr, subPath]
+            return (
+              <PathLink {...props} key={pathName(result)} path={result} className='item' />
+            )
+          })
+        }
+      </Menu>
       <Segment.Group>
-        <Segment>
-          <ul>
-            {
-              subPaths.map((subPath) => {
-                const result = [...path.arr, subPath]
-                return (
-                  <li key={pathName(result)}>
-                    <PathLink {...props} path={result} />
-                  </li>
-                )
-              })
-            }
-          </ul>
-        </Segment>
         <Segment>
           <DeleteButton {...props} disabled={!path.arr.length} />
           <AddButton {...props} />

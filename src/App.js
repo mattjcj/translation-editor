@@ -3,22 +3,35 @@ import _ from 'lodash'
 
 import {
   Redirect,
+  withRouter
 } from 'react-router-dom'
+
+import HashLinkObserver from "react-hash-link"
+
+import {
+  GlobalHotKeys
+} from 'react-hotkeys'
 
 import './scss/App.scss'
 
-import withRouter from './components/withRouter'
+// import withRouter from './components/withRouter'
 import Sidebar from './components/Sidebar/Sidebar'
 import Main from './components/Main'
 
 import generateStructure from './utils/generateStructure'
 import generatePaths from './utils/generatePaths'
+import clone from './utils/fastClone'
 
 import en from './data/en-us'
 import fr from './data/fr'
 import de from './data/de'
 
 const initialMessages = { 'en-us': en, 'fr-ch': fr, 'de-ch': de }
+
+const keyMap = {
+  PREV: ['ArrowLeft'],
+  NEXT: ['ArrowRight']
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -33,13 +46,63 @@ class App extends React.Component {
     this.handleAdd = this.handleAdd.bind(this)
     this.handleAddLocale = this.handleAddLocale.bind(this)
     this.handleDeleteLocale = this.handleDeleteLocale.bind(this)
+    this.handlers = {
+      PREV: this.hotKeyRedirect('prev').bind(this),
+      NEXT: this.hotKeyRedirect('next').bind(this)
+    }
+  }
+
+
+  hotKeyRedirect(destination) {
+    return (e) => {
+      const currentLocation = this.props.location.pathname
+      const structure = generateStructure(this.state.messages)
+      const paths = generatePaths(structure)
+
+      let pathId
+      let locationObj
+      let location = null
+
+      // find current path
+      paths.forEach((pathEval, index) => {
+        if (`/messages/${pathEval.str}` === currentLocation) {
+          pathId = index
+        }
+      })
+
+      if (destination === 'prev'){
+        // if we're not on the first element, go to the prev one, otherwise loop to last (either undefined or first)
+        if ( pathId > 0) {
+          locationObj = paths[pathId-1]
+        } else {
+          locationObj = paths[paths.length - 1]
+        }
+      }
+    
+      if (destination === 'next') {
+        // if we're not on the last element, go to the next one, otherwise loop to first (either undefined or last)
+        if (pathId < paths.length - 1) {
+          locationObj = paths[pathId+1]
+        } else {
+          locationObj = paths[1]
+        }
+      }
+
+      if(locationObj) {
+        location = `/messages/${locationObj.str}#${locationObj.id}`
+      }
+
+      this.setState({
+        redirect: location
+      })
+    }
   }
 
   structureMessages(messages) {
     const structuredMessages = {}
     Object.keys(messages).forEach((locale) => {
       const structure = generateStructure(messages)
-      const clonedMessages = _.cloneDeep(messages[locale])
+      const clonedMessages = clone(messages[locale])
       structuredMessages[locale] = _.merge(structure, clonedMessages)
     })
     return structuredMessages
@@ -48,7 +111,7 @@ class App extends React.Component {
   handleUpdate(path, locale, value) {
     this.setState((prevState) => {
       const newState = {}
-      newState.messages = _.cloneDeep(prevState.messages)
+      newState.messages = clone(prevState.messages)
       _.set(newState.messages[locale], path.arr, value)
       return newState
     })
@@ -56,7 +119,7 @@ class App extends React.Component {
 
   handleJSONUpdate(json) {
     this.setState(() => {
-      const newMessages = _.cloneDeep(json)
+      const newMessages = clone(json)
       const newState = {
         messages: this.structureMessages(newMessages)
       }
@@ -74,7 +137,7 @@ class App extends React.Component {
       const newLocation = ['/messages', ...newPath]
       newState.redirect = newLocation.join('/')
 
-      newState.messages = _.cloneDeep(prevState.messages)
+      newState.messages = clone(prevState.messages)
       Object.keys(newState.messages).forEach((locale) => {
         _.set(newState.messages[locale], newPath, value)
       })
@@ -90,7 +153,7 @@ class App extends React.Component {
       newLocation.unshift('/messages')
       newState.redirect = newLocation.join('/')
 
-      newState.messages = _.cloneDeep(prevState.messages)
+      newState.messages = clone(prevState.messages)
       Object.keys(newState.messages).forEach((locale) => {
         _.unset(newState.messages[locale], path.arr)
       })
@@ -101,9 +164,9 @@ class App extends React.Component {
   handleAddLocale(locale) {
     this.setState((prevState) => {
       const newState = {}
-      newState.messages = _.cloneDeep(prevState.messages)
+      newState.messages = clone(prevState.messages)
       const structure = generateStructure(newState.messages)
-      newState.messages[locale] = _.cloneDeep(structure)
+      newState.messages[locale] = clone(structure)
       return newState
     })
   }
@@ -111,10 +174,18 @@ class App extends React.Component {
   handleDeleteLocale(locale) {
     this.setState((prevState) => {
       const newState = {}
-      newState.messages = _.cloneDeep(prevState.messages)
+      newState.messages = clone(prevState.messages)
       delete newState.messages[locale]
       return newState
     })
+  }
+
+  componentDidUpdate() {
+    if(this.state.redirect) {
+      this.setState({
+        redirect: null
+      })
+    }
   }
 
   render() {
@@ -124,15 +195,9 @@ class App extends React.Component {
     // duplicates because of multiple locales
     const paths = generatePaths(structure)
 
-    if(redirect) {
-      this.setState({
-        redirect: null
-      })
-      return <Redirect push to={redirect} />
-    }
-
     return (
-      <div className="container">
+      <div className="container" ref={ref => (this.ref = ref)}>
+        { redirect && <Redirect push to={redirect} /> }
         <Sidebar structure={structure} paths={paths} messages={messages} addLocale={this.handleAddLocale} deleteLocale={this.handleDeleteLocale} />
         <Main
           structure={structure}
@@ -142,6 +207,8 @@ class App extends React.Component {
           JSONUpdateValue={this.handleJSONUpdate}
           deleteValue={this.handleDelete}
           addValue={this.handleAdd} />
+        <HashLinkObserver />
+        <GlobalHotKeys keyMap={keyMap} handlers={this.handlers} />
       </div>
     )
   }

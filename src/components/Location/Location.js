@@ -18,7 +18,7 @@ export default (props) => {
 
   let sections = [
     (
-      <Breadcrumb.Section active>
+      <Breadcrumb.Section active key='/messages/'>
         <NavLink to='/messages/'>/</NavLink>
       </Breadcrumb.Section>
     )
@@ -39,7 +39,7 @@ export default (props) => {
   }
 
   return (
-    <Breadcrumb icon='right angle' sections={sections} size='massive' />
+    <Breadcrumb icon='right angle' sections={sections} size='massive' className='location'/>
   )
 
 }

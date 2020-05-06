@@ -16,9 +16,16 @@
   flex-direction: column;
 }
 
-.editor, .explorer {
-  padding: 20px;
+.panel-wrapper {
+  padding: 50px;
   overflow-x: hidden;
+  height: 100%;
+  &:after {
+    content: "";
+    display: block;
+    height: 50px;
+    width: 100%;
+  }
 }
 
 .global-menu, .nav-links {

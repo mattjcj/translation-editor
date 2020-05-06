@@ -12,6 +12,8 @@ import 'brace/theme/github'
 import { JsonEditor as Editor } from 'jsoneditor-react'
 import 'jsoneditor-react/es/editor.min.css'
 
+import clone from '../utils/fastClone'
+
 const ajv = new Ajv({
   allErrors: true,
   verbose: true
@@ -51,7 +53,7 @@ export class JSONEditor extends React.Component {
     }
 
     this.setState({
-      value: _.cloneDeep(json)
+      value: clone(json)
     }, stateUpdated)
   }
 

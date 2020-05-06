@@ -10,7 +10,6 @@ import {
 
 import './MessageEditor.scss'
 import DeleteButton from '../DeleteButton/DeleteButton'
-import Location from '../Location/Location'
 
 export default (props) => {
 
@@ -28,7 +27,6 @@ export default (props) => {
 
   return (
     <Form className="editor">
-      <Location {...props} />
       <Segment.Group>
           {
             Object.keys(messages).map((locale) => (

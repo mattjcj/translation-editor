@@ -7,6 +7,7 @@ import {
 import MessageEditor from './MessageEditor/MessageEditor'
 import MessageExplorer from './MessageExplorer/MessageExplorer'
 import NavLinks from './NavLinks/NavLinks'
+import Location from './Location/Location'
 
 const defaultPath = {
   type: 'collection',
@@ -40,7 +41,10 @@ export default (props) => {
   return (
     <div className='column'>
       <NavLinks {...props} pathId={pathId}/>
-      {content}
+      <div className='panel-wrapper'>
+        <Location path={path} />
+        {content}
+      </div>
     </div>
   )
 }
