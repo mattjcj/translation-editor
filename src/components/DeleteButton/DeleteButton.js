@@ -1,5 +1,11 @@
 import React from 'react'
 
+import {
+  Button
+} from 'semantic-ui-react'
+
+import './DeleteButton.scss'
+
 export default (props) => {
 
   const { deleteValue, path, disabled } = props
@@ -9,6 +15,6 @@ export default (props) => {
   }
 
   return (
-    <button onClick={handleDelete} disabled={disabled}>Delete</button>
+    <Button onClick={handleDelete} disabled={disabled} negative>Delete</Button>
   )
 }

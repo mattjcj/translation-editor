@@ -25,6 +25,9 @@ export class JSONEditor extends React.Component {
     this.runValidation = this.runValidation.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.setOptions = this.setOptions.bind(this)
+    this.state = {
+      value: props.defaultValue || null
+    }
   }
 
   setRef (instance) {
@@ -37,14 +40,19 @@ export class JSONEditor extends React.Component {
   
   handleChange(json) {
 
-    if(typeof this.props.isValid === 'function') {
-      this.runValidation(json)
+    const stateUpdated = () => {
+      if(typeof this.props.isValid === 'function') {
+        this.runValidation(json)
+      }
+  
+      if(typeof this.props.onChange === 'function') {
+        this.props.onChange(json)
+      }
     }
 
-    if(typeof this.props.onChange === 'function') {
-      this.props.onChange(json)
-    }
-
+    this.setState({
+      value: _.cloneDeep(json)
+    }, stateUpdated)
   }
 
   runValidation(json) {
@@ -73,7 +81,7 @@ export class JSONEditor extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { mode, allowedModes, readOnly, value, options } = this.props
+    const { mode, allowedModes, readOnly, options } = this.props
     
     if(readOnly !== prevProps.readOnly) {
       if(readOnly) {
@@ -87,9 +95,11 @@ export class JSONEditor extends React.Component {
       }
     }
 
-    if( !_.isEqual(value, prevProps.value) ) {
-      this.editor.jsonEditor.set(value)
-      this.handleChange(value)
+    if(
+      JSON.stringify(this.props.value) !== JSON.stringify(this.state.value) &&
+      JSON.stringify(this.props.value) !== JSON.stringify(prevProps.value)
+    ) {
+      this.editor.jsonEditor.set(this.props.value)
     }
 
     if( !_.isEqual(options, prevProps.options) ) {
