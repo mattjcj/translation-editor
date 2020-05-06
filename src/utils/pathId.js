@@ -1,3 +1,3 @@
 export default (path) => {
-  return path.join('-')
+  return path.length ? path.join('-') : 'root'
 }

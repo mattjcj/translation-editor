@@ -71,7 +71,7 @@ class PrevNextRedirect extends React.Component {
         if (pathId < paths.length - 1) {
           path = paths[pathId+1]
         } else {
-          path = paths[1]
+          path = paths[0]
         }
       }
 
