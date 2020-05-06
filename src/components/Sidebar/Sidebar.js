@@ -34,7 +34,6 @@ class CollectionElement extends React.Component {
       !_.isEqual(content, nextProps.content)
       || !_.isEqual(path, nextProps.path)
     )
-    console.log(should)
     return should
   }
 
@@ -65,7 +64,6 @@ class Iterator extends React.Component {
       !_.isEqual(paths, nextProps.paths)
       || !_.isEqual(structure, nextProps.structure)
     )
-    console.log(structure, nextProps.structure, should)
     return should
   }
 

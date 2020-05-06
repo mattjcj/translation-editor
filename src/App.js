@@ -76,9 +76,6 @@ class App extends React.PureComponent {
         }
       }
 
-      console.log(pathId)
-
-
       let location = null
 
       if(path) {

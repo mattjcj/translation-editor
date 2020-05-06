@@ -16,7 +16,6 @@ export default (props) => {
   const enabled = locale.length > 0 && locales.indexOf(locale.toLowerCase()) < 0
 
   const handleAdd = (e) => {
-    console.log(e)
     e.preventDefault()
     if (enabled) {
       addLocale(locale.toLowerCase())
