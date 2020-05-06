@@ -60,12 +60,12 @@ class Iterator extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const { messages, paths, structure } = this.props
+    const { paths, structure } = this.props
     const should = (
-      !_.isEqual(messages, nextProps.messages)
-      || !_.isEqual(paths, nextProps.paths)
+      !_.isEqual(paths, nextProps.paths)
       || !_.isEqual(structure, nextProps.structure)
     )
+    console.log(structure, nextProps.structure, should)
     return should
   }
 
