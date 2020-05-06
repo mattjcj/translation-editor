@@ -32,7 +32,7 @@ class MessageExplorer extends React.Component {
     const { path } = findPath(paths, location.pathname)
   
     const subPaths = paths.filter((subPath) => {
-      return path && pathString( subPath.arr.slice(0, subPath.arr.length-1) ) === path.str
+      return path && pathString( subPath.arr.slice(0, subPath.arr.length-1) ) === path.str && subPath.arr.length > 0
     })
   
     return (
