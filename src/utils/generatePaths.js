@@ -8,7 +8,8 @@ export default (structure) => {
     return {
       type: type,
       str: pathString(path),
-      arr: path
+      arr: path,
+      name: path[path.length - 1] || 'Root'
     }
   }
 

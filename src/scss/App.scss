@@ -4,16 +4,24 @@
 
   width: 100%;
   position: absolute;
-  overflow: auto;
 }
 
 .sidebar, .column {
   flex: 1 1 0px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  height: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
 }
 
 .editor, .explorer {
   padding: 20px;
-  height: 100%;
+  overflow-x: hidden;
+}
+
+.global-menu, .nav-links {
+  border-bottom: 1px solid #ddd;
+  min-height: 80px;
 }

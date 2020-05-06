@@ -3,7 +3,8 @@ import React from 'react'
 import './NavLinks.scss'
 
 import {
-  Link
+  Link,
+  NavLink
 } from "react-router-dom"
 
 export default (props) => {
@@ -21,10 +22,15 @@ export default (props) => {
     next = '/messages/' +paths[pathId+1].str
   }
 
+  if(typeof pathId === 'undefined') {
+    next = '/messages/' +paths[1].str
+  }
+
   return (
-    <div class='nav-links'>
-      {prev && <Link to={prev} className='prev'>Prev</Link>}
-      {next && <Link to={next} className='next'>Next</Link>}
-    </div>
+    <p className='nav-links'>
+      {prev ? <Link to={prev} className='prev ui button'>Prev</Link> : <span class='button ui disabled'>Prev</span>}
+      <NavLink to='/json' activeClassName="active" exact>View JSON</NavLink>
+      {next ? <Link to={next} className='next ui button'>Next</Link> : <span class='button ui disabled'>Next</span>}
+    </p>
   )
 }

@@ -1,4 +1,12 @@
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ddd;
+
+  .global-menu, .iterator {
+    overflow-x: hidden;
+  }
+
   .item {
     padding-left: 30px;
     a {

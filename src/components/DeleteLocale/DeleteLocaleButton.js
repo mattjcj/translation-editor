@@ -1,38 +1,33 @@
 import React from 'react'
 
+import {
+  Label,
+  Flag,
+  Icon
+} from 'semantic-ui-react'
+
 import './DeleteLocaleButton.scss'
 
 export default (props) => {
 
   const { deleteLocale, messages } = props
 
-  const [ locale, setLocale ] = React.useState('')
-
-  const enabled = locale.length > 0
-
-  const handleDelete = (e) => {
+  const handleDelete = (e, targetProps) => {
     e.preventDefault()
-    if (enabled) {
-      deleteLocale(locale)
-      setLocale('')
-    }
-  }
-
-  const handleChange = (e) => {
-    setLocale(e.target.value)
+    deleteLocale(targetProps.value)
   }
 
   return (
-    <form >
-      <select value={locale} onChange={handleChange} >
-        <option value=""></option>
-          {
-            Object.keys(messages).map((availableLocale) => (
-              <option key={availableLocale} value={availableLocale}>{availableLocale.toUpperCase()}</option>
-            ))
-          }
-      </select>
-      <button onClick={handleDelete} disabled={!enabled}>Delete Locale</button>
-    </form>
+    <div class='locales-labels'>
+      {
+        Object.keys(messages).map((availableLocale) => (
+          <Label key={availableLocale} size='large'>
+            <Flag name={availableLocale.toLowerCase().slice(availableLocale.length - 2, availableLocale.length)} />
+            {availableLocale}
+            <Icon name='delete' onClick={handleDelete} value={availableLocale} />
+          </Label>
+        ))
+      }
+    </div>
   )
 }

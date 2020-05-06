@@ -25,7 +25,7 @@ const Iterator = (props) => {
       const key = pathName(path)
       return (
         <li key={key} className={`item item-message ${isValid ? '' : 'invalid'}`}>
-          <PathLink path={path} />
+          <PathLink {...props} path={path} />
         </li>
       )
     }
@@ -36,7 +36,7 @@ const Iterator = (props) => {
         const key = pathName(path)
         return (
           <li key={key} className='item item-collection'>
-            <PathLink path={path} />
+            <PathLink {...props} path={path} />
             <ul>
               {content}
             </ul>
@@ -45,7 +45,7 @@ const Iterator = (props) => {
       } else { // root element
         return (
           <li className='item item-collection'>
-            <PathLink path={[]} />
+            <PathLink {...props} path={[]} />
             <ul>
               {content}
             </ul>
@@ -69,7 +69,9 @@ class Sidebar extends React.Component {
     return (
       <aside className="sidebar">
         <GlobalMenu {...this.props} />
-        <Iterator {...this.props} />
+        <div className='iterator'>
+          <Iterator {...this.props} />
+        </div>
       </aside>
     )
   }

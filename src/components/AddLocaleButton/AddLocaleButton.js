@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './AddLocaleButton.scss'
+
 import {
   Input
 } from 'semantic-ui-react'
@@ -27,8 +29,17 @@ export default (props) => {
   }
 
   return (
-    <form >
-      <Input action={{ icon: 'add', disabled: !enabled, onClick: handleAdd }} placeholder='Locale' value={locale} onChange={handleChange} />
+    <form className='add-locale-form'>
+      <Input
+        action={{
+          icon: 'add',
+          disabled: !enabled,
+          onClick: handleAdd
+        }}
+        placeholder='Locale'
+        value={locale}
+        onChange={handleChange}
+        fluid />
     </form>
   )
 }

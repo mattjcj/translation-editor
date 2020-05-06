@@ -14,11 +14,11 @@ import Main from './components/Main'
 import generateStructure from './utils/generateStructure'
 import generatePaths from './utils/generatePaths'
 
-import en from './data/en'
+import en from './data/en-us'
 import fr from './data/fr'
 import de from './data/de'
 
-const initialMessages = { en, fr, de }
+const initialMessages = { 'en-us': en, 'fr-ch': fr, 'de-ch': de }
 
 class App extends React.Component {
   constructor(props) {
@@ -133,7 +133,7 @@ class App extends React.Component {
 
     return (
       <div className="container">
-        <Sidebar structure={structure} messages={messages} addLocale={this.handleAddLocale} deleteLocale={this.handleDeleteLocale} />
+        <Sidebar structure={structure} paths={paths} messages={messages} addLocale={this.handleAddLocale} deleteLocale={this.handleDeleteLocale} />
         <Main
           structure={structure}
           paths={paths}
