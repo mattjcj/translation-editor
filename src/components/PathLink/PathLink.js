@@ -2,6 +2,8 @@ import React from 'react'
 
 import './PathLink.scss'
 
+import _ from 'lodash'
+
 import {
   NavLink
 } from "react-router-dom"
@@ -10,21 +12,26 @@ import {
   Icon
 } from 'semantic-ui-react'
 
-import pathString from '../../utils/pathString'
-
 class PathLink extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    const { path, className } = this.props
+    const should = (
+      !_.isEqual(path, nextProps.path)
+      || className !== nextProps.className
+    )
+    return should
+  }
+
   render() {
     const {
       path,
-      paths,
       className,
     } = this.props
-    const pathData = paths.find((pathEval) => pathEval.str === pathString(path))
-    const icon = pathData.type === 'collection' ? 'folder' : 'list'
+    const icon = path.type === 'collection' ? 'folder' : 'list'
     const classes = className ? `path-link ${className}` : 'path-link'
     return (
-      <NavLink to={`/messages/${pathData.str}`} activeClassName="active" className={classes} id={pathData.id} exact>
-        <Icon name={icon}/>{pathData.name}
+      <NavLink to={`/messages/${path.str}`} activeClassName="active" className={classes} id={path.id} exact>
+        <Icon name={icon}/>{path.name}
       </NavLink>
     )
   }

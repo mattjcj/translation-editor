@@ -13,6 +13,7 @@ import { JsonEditor as Editor } from 'jsoneditor-react'
 import 'jsoneditor-react/es/editor.min.css'
 
 import clone from '../utils/fastClone'
+import equal from '../utils/fastCompare'
 
 const ajv = new Ajv({
   allErrors: true,
@@ -80,6 +81,24 @@ export class JSONEditor extends React.Component {
         this.editor.jsonEditor.options[option] = options[option]
       })
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const { value, isValid, allowedModes, mode, readOnly, options, onChange, getRef, onError, defaultValue, htmlElementProps } = this.props
+    const should = (
+        !_.isEqual(value, nextProps.value)
+      || !_.isEqual(defaultValue, nextProps.defaultValue)
+      || !_.isEqual(options, nextProps.options)
+      || !_.isEqual(htmlElementProps, nextProps.htmlElementProps)
+      || isValid !== nextProps.isValid
+      || allowedModes !== nextProps.allowedModes
+      || mode !== nextProps.mode
+      || readOnly !== nextProps.readOnly
+      || onChange !== nextProps.onChange
+      || getRef !== nextProps.getRef
+      || onError !== nextProps.onError
+    )
+    return should
   }
 
   componentDidUpdate(prevProps) {

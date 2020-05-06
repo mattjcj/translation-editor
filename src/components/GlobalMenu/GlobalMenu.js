@@ -5,7 +5,7 @@ import './GlobalMenu.scss'
 import AddLocaleButton from '../AddLocaleButton/AddLocaleButton'
 import DeleteLocaleButton from '../DeleteLocale/DeleteLocaleButton'
 
-class GlobalMenu extends React.Component {
+class GlobalMenu extends React.PureComponent {
   render() {
     return (
       <div className='global-menu'>

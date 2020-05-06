@@ -33,7 +33,7 @@ const keyMap = {
   NEXT: ['ArrowRight']
 }
 
-class App extends React.Component {
+class App extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -52,49 +52,64 @@ class App extends React.Component {
     }
   }
 
-
   hotKeyRedirect(destination) {
     return (e) => {
-      const currentLocation = this.props.location.pathname
-      const structure = generateStructure(this.state.messages)
-      const paths = generatePaths(structure)
-
-      let pathId
-      let locationObj
-      let location = null
-
       // find current path
-      paths.forEach((pathEval, index) => {
-        if (`/messages/${pathEval.str}` === currentLocation) {
-          pathId = index
-        }
-      })
+      const { pathId, paths } = this.findPath()
 
+      let path
       if (destination === 'prev'){
         // if we're not on the first element, go to the prev one, otherwise loop to last (either undefined or first)
         if ( pathId > 0) {
-          locationObj = paths[pathId-1]
+          path = paths[pathId-1]
         } else {
-          locationObj = paths[paths.length - 1]
+          path = paths[paths.length - 1]
         }
       }
     
       if (destination === 'next') {
         // if we're not on the last element, go to the next one, otherwise loop to first (either undefined or last)
         if (pathId < paths.length - 1) {
-          locationObj = paths[pathId+1]
+          path = paths[pathId+1]
         } else {
-          locationObj = paths[1]
+          path = paths[1]
         }
       }
 
-      if(locationObj) {
-        location = `/messages/${locationObj.str}#${locationObj.id}`
+      console.log(pathId)
+
+
+      let location = null
+
+      if(path) {
+        location = `/messages/${path.str}#${path.id}`
       }
 
       this.setState({
         redirect: location
       })
+    }
+  }
+
+  findPath(paths) {
+    if(typeof paths === 'undefined') {
+      const structure = generateStructure(this.state.messages)
+      paths = generatePaths(this.state.messages, structure)
+    }
+    const currentLocation = this.props.location.pathname
+    let path
+    let pathId
+    // find current path
+    paths.forEach((pathEval, index) => {
+      if (`/messages/${pathEval.str}` === currentLocation) {
+        pathId = index
+        path = pathEval
+      }
+    })
+    return {
+      pathId,
+      path,
+      paths
     }
   }
 
@@ -193,15 +208,23 @@ class App extends React.Component {
     const structure = generateStructure(messages)
     // we need to generate paths from structure and not messages to avoid
     // duplicates because of multiple locales
-    const paths = generatePaths(structure)
+    const paths = generatePaths(messages, structure)
+    const { path } = this.findPath(paths)
 
     return (
-      <div className="container" ref={ref => (this.ref = ref)}>
+      <div className="container">
         { redirect && <Redirect push to={redirect} /> }
-        <Sidebar structure={structure} paths={paths} messages={messages} addLocale={this.handleAddLocale} deleteLocale={this.handleDeleteLocale} />
+        <Sidebar
+          structure={structure}
+          paths={paths}
+          currentPath={path}
+          messages={messages}
+          addLocale={this.handleAddLocale}
+          deleteLocale={this.handleDeleteLocale} />
         <Main
           structure={structure}
           paths={paths}
+          currentPath={path}
           messages={messages}
           updateValue={this.handleUpdate}
           JSONUpdateValue={this.handleJSONUpdate}

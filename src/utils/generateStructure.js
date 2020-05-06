@@ -22,6 +22,6 @@ export default (messages) => {
   locales.forEach((locale) => {
     iterate(messages[locale], onString, onObject)
   })
-
+  
   return structure
 }

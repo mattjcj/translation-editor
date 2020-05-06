@@ -4,7 +4,7 @@ import './JSONPanel.scss'
 
 import { JSONEditor } from '../JSONEditor'
 
-class JSONPanel extends React.Component {
+class JSONPanel extends React.PureComponent {
   constructor(props) {
     super(props)
     this.handleJSONChange = this.handleJSONChange.bind(this)
