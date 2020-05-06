@@ -18,7 +18,7 @@ export default (props) => {
   }
 
   return (
-    <div class='locales-labels'>
+    <div className='locales-labels'>
       {
         Object.keys(messages).map((availableLocale) => (
           <Label key={availableLocale} size='large'>

@@ -5,17 +5,12 @@ import {
   Flag,
   Form,
   TextArea,
-  Breadcrumb,
   Segment
 } from 'semantic-ui-react'
 
-import {
-  NavLink
-} from "react-router-dom"
-
 import './MessageEditor.scss'
 import DeleteButton from '../DeleteButton/DeleteButton'
-import pathString from '../../utils/pathString'
+import Location from '../Location/Location'
 
 export default (props) => {
 
@@ -31,31 +26,9 @@ export default (props) => {
     updateValue(path, e.target.name, e.target.value)
   }
 
-  let sections = [
-    (
-      <Breadcrumb.Section active>
-        <NavLink to='/messages/'>/</NavLink>
-      </Breadcrumb.Section>
-    )
-  ]
-
-  if(path && path.arr.length) {
-    sections = path.arr.map((section, index) => {
-      const link = '/messages/' +pathString(
-        path.arr.slice(0,index+1)
-      )
-      const active = index === path.arr.length -1
-      return (
-        <Breadcrumb.Section active={active}>
-          <NavLink to={link}>{section}</NavLink>
-        </Breadcrumb.Section>
-      )
-    })
-  }
-
   return (
     <Form className="editor">
-      <Breadcrumb icon='right angle' sections={sections} size='massive' />
+      <Location {...props} />
       <Segment.Group>
           {
             Object.keys(messages).map((locale) => (

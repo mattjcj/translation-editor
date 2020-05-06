@@ -87,7 +87,7 @@ export class JSONEditor extends React.Component {
       }
     }
 
-    if(JSON.stringify(value) !== JSON.stringify(prevProps.value)) {
+    if( !_.isEqual(value, prevProps.value) ) {
       this.editor.jsonEditor.set(value)
       this.handleChange(value)
     }

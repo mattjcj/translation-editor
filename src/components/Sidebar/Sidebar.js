@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 import './Sidebar.scss'
 
-import PathLink from '../PathLink'
+import PathLink from '../PathLink/PathLink'
 import GlobalMenu from '../GlobalMenu/GlobalMenu'
 
 import iterate from '../../utils/iterate'
