@@ -35,7 +35,7 @@ export default (props) => {
           disabled: !enabled,
           onClick: handleAdd
         }}
-        placeholder='Locale'
+        placeholder='Add locale'
         value={locale}
         onChange={handleChange}
         fluid />

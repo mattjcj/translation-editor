@@ -47,9 +47,9 @@ class MessageExplorer extends React.Component {
           }
         </Menu>
         <Segment.Group>
-          <Segment>
-            <DeleteButton {...this.props} disabled={path && !path.arr.length} />
+          <Segment className='actions'>
             <AddButton {...this.props} />
+            <DeleteButton {...this.props} disabled={path && !path.arr.length} />
           </Segment>
         </Segment.Group>
       </div>

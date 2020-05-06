@@ -56,13 +56,14 @@ class LocationSections extends React.Component {
               const id = pathId(path.arr.slice(0,index+1))
               const link = `/messages/${str}#${id}`
               const active = index === path.arr.length -1
+              console.log(link)
               return (
-                <>
-                  <LocationSection key={link} link={link} active={active} text={section}/>
+                <React.Fragment key={link}>
+                  <LocationSection link={link} active={active} text={section}/>
                   {
-                    (index !== path.arr.length - 1) && (<Breadcrumb.Divider key={`${link}-divider`}/>)
+                    (index !== path.arr.length - 1) && (<Breadcrumb.Divider icon='right angle' key={`${link}-divider`}/>)
                   }
-                </>
+                </React.Fragment>
               )
             })
           }
@@ -89,7 +90,7 @@ export default class Location extends React.Component {
     const { path } = this.props
 
     return (
-      <Breadcrumb icon='right angle' size='massive' className='location' >
+      <Breadcrumb size='massive' className='location' >
         <LocationSections path={path} />
       </Breadcrumb>
     )

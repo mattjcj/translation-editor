@@ -1,14 +1,21 @@
 import React from 'react'
 
+import {
+  Input,
+  Select,
+  Button
+} from 'semantic-ui-react'
+
 export default (props) => {
 
   const { addValue, path } = props
 
   const [ pathName, setPathName ] = React.useState('')
+  const [ type, setType ] = React.useState('message')
 
   const enabled = (pathName.length > 0)
 
-  const handleSubmit = (e, type) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     if (enabled) {
       addValue(path, pathName, type)
@@ -16,23 +23,26 @@ export default (props) => {
     }
   }
 
-  const handleAddCollection = (e) => {
-    handleSubmit(e, 'collection')
+  const handleChangeType = (e, { value }) => {
+    setType(value)
   }
 
-  const handleAddMessage = (e) => {
-    handleSubmit(e, 'message')
+  const handleChange = (e, { value }) => {
+    setPathName( value )
   }
 
-  const handleChange = (e) => {
-    setPathName(e.target.value)
-  }
+  const options = [
+    {key: 'message', text: 'Message', value: 'message'},
+    {key: 'collection', text: 'Collection', value: 'collection'}
+  ]
 
   return (
     <form >
-      <input type="text" value={pathName} onChange={handleChange} />
-      <button onClick={handleAddMessage} disabled={!enabled}>Add Message</button>
-      <button onClick={handleAddCollection} disabled={!enabled}>Add Collection</button>
+      <Input type='text' placeholder='Add...' value={pathName} onChange={handleChange} action>
+        <input />
+        <Select compact options={options} defaultValue={type} onChange={handleChangeType} />
+        <Button onClick={handleSubmit} disabled={!enabled} icon='add'/>
+      </Input>
     </form>
   )
 }

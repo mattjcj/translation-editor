@@ -19,7 +19,7 @@ class JSONPanel extends React.PureComponent {
     const { messages } = this.props
     return (
       <div className='column'>
-        <div className='editor'>
+        <div className='json-panel'>
           <JSONEditor
             value={messages}
             onChange={this.handleJSONChange}

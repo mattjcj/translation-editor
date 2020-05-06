@@ -1,17 +1,5 @@
 .editor {
-  fieldset {
-    border: 1px solid #eee;
-    padding: 0 20px;
-  }
-
   textarea {
-    width: 100%;
     min-height: 100px;
-    min-width: 100%;
-    resize: vertical;
-    font-size: 1.2em;
-    display: block;
-    margin-bottom: 20px;
-    padding: 1em;
   }
 }
