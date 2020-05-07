@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/translation-editor/static/css/main.d167e280.chunk.css",
-    "main.js": "/translation-editor/static/js/main.14c79f84.chunk.js",
-    "main.js.map": "/translation-editor/static/js/main.14c79f84.chunk.js.map",
+    "main.js": "/translation-editor/static/js/main.47d08e93.chunk.js",
+    "main.js.map": "/translation-editor/static/js/main.47d08e93.chunk.js.map",
     "runtime-main.js": "/translation-editor/static/js/runtime-main.494262e9.js",
     "runtime-main.js.map": "/translation-editor/static/js/runtime-main.494262e9.js.map",
     "static/css/2.7a77bd8b.chunk.css": "/translation-editor/static/css/2.7a77bd8b.chunk.css",
     "static/js/2.c635ddce.chunk.js": "/translation-editor/static/js/2.c635ddce.chunk.js",
     "static/js/2.c635ddce.chunk.js.map": "/translation-editor/static/js/2.c635ddce.chunk.js.map",
     "index.html": "/translation-editor/index.html",
-    "precache-manifest.1241dc558b2eeebd8d3bf964f1a954d0.js": "/translation-editor/precache-manifest.1241dc558b2eeebd8d3bf964f1a954d0.js",
+    "precache-manifest.04425dbb51c2fc1df4e081c4662e2d1d.js": "/translation-editor/precache-manifest.04425dbb51c2fc1df4e081c4662e2d1d.js",
     "service-worker.js": "/translation-editor/service-worker.js",
     "static/css/2.7a77bd8b.chunk.css.map": "/translation-editor/static/css/2.7a77bd8b.chunk.css.map",
     "static/css/main.d167e280.chunk.css.map": "/translation-editor/static/css/main.d167e280.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.7a77bd8b.chunk.css",
     "static/js/2.c635ddce.chunk.js",
     "static/css/main.d167e280.chunk.css",
-    "static/js/main.14c79f84.chunk.js"
+    "static/js/main.47d08e93.chunk.js"
   ]
 }
