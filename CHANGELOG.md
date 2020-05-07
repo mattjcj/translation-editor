@@ -7,6 +7,10 @@ It also adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.1] 2020-04-07
+### Fixed
+- Changed "homepage" in package.json to deploy to Github Pages
+
 ## [1.0.0] 2020-04-07
 ### Added
 - Initial release
