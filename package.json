@@ -1,6 +1,6 @@
 {
   "name": "translation-editor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "homepage": "https://mattjcj.github.io/translation-editor/",
   "dependencies": {
