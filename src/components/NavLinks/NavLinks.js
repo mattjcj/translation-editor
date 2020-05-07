@@ -26,7 +26,7 @@ export default (props) => {
 
   if(typeof pathId === 'undefined') {
     const newPath = paths[1]
-    next = `/messages/${newPath.str}#${newPath.id}`
+    next = newPath ? `/messages/${newPath.str}#${newPath.id}` : null
   }
 
   return (
