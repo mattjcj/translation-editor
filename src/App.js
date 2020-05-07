@@ -18,7 +18,7 @@ import clone from './utils/fastClone'
 
 import PrevNextRedirect from './components/PrevNextRedirect'
 
-const initialMessages = {}
+const initialMessages = JSON.parse(localStorage.getItem('messages')) || {}
 
 const withRedirect = (WrappedComponent) => (props) => {
 
@@ -185,11 +185,15 @@ class App extends React.Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     if(this.state.redirect) {
       this.setState({
         redirect: null
       })
+    }
+    // if messages changed, save them in localstorage
+    if(!_.isEqual(prevState.messages, this.state.messages)) {
+      localStorage.setItem('messages', JSON.stringify(this.state.messages))
     }
   }
 
