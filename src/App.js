@@ -98,6 +98,7 @@ class App extends React.Component {
   }
 
   handleJSONUpdate(json) {
+    json = json ? json : {}
     this.setState(() => {
       const newMessages = clone(json)
       const newState = {
