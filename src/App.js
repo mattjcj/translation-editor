@@ -16,12 +16,9 @@ import generateStructure from './utils/generateStructure'
 import generatePaths from './utils/generatePaths'
 import clone from './utils/fastClone'
 
-import en from './data/en-us'
-import fr from './data/fr'
-import de from './data/de'
 import PrevNextRedirect from './components/PrevNextRedirect'
 
-const initialMessages = { 'en-us': en, 'fr-ch': fr, 'de-ch': de }
+const initialMessages = {}
 
 const withRedirect = (WrappedComponent) => (props) => {
 
@@ -59,6 +56,7 @@ class App extends React.Component {
     this.handleAdd = this.handleAdd.bind(this)
     this.handleAddLocale = this.handleAddLocale.bind(this)
     this.handleDeleteLocale = this.handleDeleteLocale.bind(this)
+    this.handleUpload = this.handleUpload.bind(this)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -163,6 +161,29 @@ class App extends React.Component {
     })
   }
 
+  handleUpload(json, locale) {
+    if(typeof locale === 'undefined') {
+      // if loading all locales
+      this.setState(() => {
+        const newMessages = clone(json)
+        const newState = {
+          messages: this.structureMessages(newMessages)
+        }
+        return newState
+      })
+    } else {
+      // if loading only one locale
+      this.setState((prevState) => {
+        const newMessages = clone(prevState.messages)
+        newMessages[locale] = clone(json)
+        const newState = {
+          messages: this.structureMessages(newMessages)
+        }
+        return newState
+      })
+    }
+  }
+
   componentDidUpdate() {
     if(this.state.redirect) {
       this.setState({
@@ -194,7 +215,9 @@ class App extends React.Component {
           updateValue={this.handleUpdate}
           JSONUpdateValue={this.handleJSONUpdate}
           deleteValue={this.handleDelete}
-          addValue={this.handleAdd} />
+          addValue={this.handleAdd}
+          upload={this.handleUpload}
+          />
         <PrevNextRedirect paths={ paths } />
       </div>
     )
