@@ -13,7 +13,7 @@ import {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <Router basename='translation-editor/'>
       <App />
     </Router>
   </React.StrictMode>,

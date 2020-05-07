@@ -206,6 +206,7 @@ class App extends React.Component {
 
     return (
       <div className="container">
+        <Redirect from="/" to="/messages" />
         { redirect && <Redirect push to={redirect} /> }
         <Sidebar
           structure={structure}
