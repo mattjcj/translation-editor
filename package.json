@@ -25,7 +25,7 @@
     "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
-    "node-sass": "^4.14.0"
+    "node-sass": "^7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
