@@ -19,6 +19,8 @@ const iterate = (base, onString, onObject, path = []) => {
       }
 
     }
+  } else {
+    return onString(path, "", false)
   }
 }
 
